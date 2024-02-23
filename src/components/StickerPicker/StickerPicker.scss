@@ -1,0 +1,68 @@
+.sticker-picker-container {
+    border: 1px solid #3333333d;
+    z-index: 49;
+    background-color: rgb(237, 231, 255);
+    box-shadow: 0 0 10px #3333331f;
+    border-radius: 30px;
+    overflow-y: auto;
+    padding: 2em;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1em;
+    bottom: 2em;
+    left: 2em;
+
+    .mini-logo {
+        width: 50px;
+    }
+
+    .sticker {
+        padding: 0.5em;
+        width: 60px;
+        height: 60px;
+        border: 1px solid transparent;
+        border-radius: 10px;
+        transition: 0.2s ease;
+        -webkit-user-drag: none;
+
+        &:hover {
+            border: 1px solid #3333333d;
+            box-shadow: 0 0 10px #3333331f;
+            cursor: pointer;
+            transform: scale(1.5);
+            transition: 0.2s ease;
+        }
+    }
+
+    .sticker-disabled {
+        opacity: 0.5;
+
+        &:hover {
+            cursor: not-allowed;
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .sticker-picker-container {
+        gap: 0.5em;
+        flex-direction: row;
+        padding: 1em;
+        justify-content: space-evenly;
+        width: calc(100% - 4em);
+
+        .sticker {
+            padding: 0.3em;
+            width: 40px;
+            height: 40px;
+        }
+
+        .mini-logo,
+        .divider {
+            display: none;
+        }
+    }
+}
