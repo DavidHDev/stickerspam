@@ -33,7 +33,7 @@ const App: React.FC = () => {
     }
 
     const getWinner = () => {
-      onValue(winnerRef, (snapshot) => {
+      get(winnerRef).then((snapshot) => {
         if (snapshot.exists()) {
           const data = snapshot.val();
 
