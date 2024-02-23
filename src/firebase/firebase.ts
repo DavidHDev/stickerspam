@@ -2,7 +2,7 @@
 
 import { initializeApp } from 'firebase/app';
 import { getDatabase, push, ref, set } from 'firebase/database';
-import { getRandomPosition } from '../utils';
+import { getRandomPosition, getUserName } from '../utils';
 
 const config = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -25,12 +25,13 @@ export const addSticker = (type: string) => {
   const newStickerRef = push(stickersRef);
   set(newStickerRef, {
     position: getRandomPosition(),
+    placedBy: getUserName() || 'Anonymous',
     type
   });
 }
 
-export const setLatestWinner = () => {
-  set(winnerRef, (localStorage.getItem('stickerspam-name') || 'Anonymous'));
+export const setLatestWinner = (winner: string) => {
+  set(winnerRef, winner);
 }
 
 export const clearStickersOnLimitReached = () => {

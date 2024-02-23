@@ -5,6 +5,7 @@ import { Sticker } from '../../Interfaces/Sticker';
 
 import './StickerArea.scss';
 import { AnimatePresence, motion } from 'framer-motion';
+import { Tooltip } from '@nextui-org/react';
 
 const StickerArea = ({ stickers, winner }) => {
     const constraintsRef = useRef(null);
@@ -29,12 +30,21 @@ const StickerArea = ({ stickers, winner }) => {
                         animate={{ opacity: 1, scale: 1, rotateZ: '0deg' }}
                         exit={{ opacity: 0 }}
                     >
-                        <motion.img
-                            drag
-                            dragConstraints={constraintsRef}
-                            src={options[sticker.type].src}
-                            alt={`${sticker.type} sticker`}
-                        />
+                        <Tooltip
+                            delay={0}
+                            closeDelay={0}
+                            placement='bottom'
+                            content={`Placed by ${sticker.placedBy}`}
+                            color="secondary"
+                        >
+                            <motion.img
+                                drag
+                                dragConstraints={constraintsRef}
+                                src={options[sticker.type].src}
+                                alt={`${sticker.type} sticker`}
+                            />
+                        </Tooltip>
+
                     </motion.span>
                 </AnimatePresence>
             ))}

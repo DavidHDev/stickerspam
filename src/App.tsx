@@ -58,10 +58,11 @@ const App: React.FC = () => {
         ))
 
         console.log(stickers.length)
-        if (stickers.length + 1 === 33) {
+        if (stickers.length + 1 === 5) {
           clearStickersOnLimitReached();
           setPositionedStickers([]);
-          setLatestWinner();
+          setLatestWinner(stickers.pop().placedBy);
+          getWinner();
           getStickers();
         }
       }
