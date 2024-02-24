@@ -8,7 +8,6 @@ import { getLeaderboard, getStickerCount, getUserName } from "./utils";
 import StickerPicker from "./components/StickerPicker/StickerPicker";
 import StickerArea from "./components/StickerArea/StickerArea";
 import NameModal from "./components/NameModal";
-import { nameRegex } from "./constants/stickers.constants";
 import WinnerMessage from "./components/WinnerMessage";
 
 const App: React.FC = () => {
@@ -68,7 +67,8 @@ const App: React.FC = () => {
           [...prevValue, ...newSticker] as Sticker[]
         ))
 
-        if (stickers.length + 1 === 5) {
+        if (stickers.length + 1 === 34) {
+          setLatestWinner(getLeaderboard(stickers)[0].substring(4));
           setIsWinnerMessageVisible(true);
 
           setTimeout(() => {
@@ -80,7 +80,7 @@ const App: React.FC = () => {
 
           // clear state
           clearStickersOnLimitReached();
-          setLatestWinner(leaderboard[0].match(nameRegex)[1]);
+          // setLatestWinner(leaderboard[0].match(nameRegex)[1]);
 
           getWinner();
           getStickers();
