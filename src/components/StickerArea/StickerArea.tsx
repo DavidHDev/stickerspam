@@ -18,9 +18,9 @@ const StickerArea = ({ stickers, winner, leaderboard }) => {
                     <div className='count shadow-md w-fit'>Count - {stickers.length}</div>
                 </div>
                 <div className='flex flex-col bg-[#333] text-white shadow-md rounded-2xl py-2 px-4 capitalize items-start text-xs relative z-30'>
-                    <p className='text-center uppercase text-yellow-400'>Leaderboard</p>
+                    <p className='text-center uppercase text-yellow-400 select-none'>Leaderboard</p>
                     {leaderboard.map((item) => (
-                        <span>{item}</span>
+                        <span className='select-none'>{item}</span>
                     ))}
                 </div>
             </div>
