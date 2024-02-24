@@ -25,14 +25,14 @@
 
     .latest-winner {
         background-color: #333;
-        padding: 0.5em 2em;
-        font-size: 14px;
+        padding: 0.5em 1em;
         border-radius: 50px;
         text-transform: capitalize;
         font-weight: 600;
         text-align: center;
         position: relative;
         z-index: 47;
+        font-size: 12px !important;
         user-select: none;
     }
 
@@ -42,7 +42,7 @@
         z-index: 47;
         border: 2px solid #333;
         padding: 0.5em 2em;
-        font-size: 14px;
+        font-size: 12px;
         border-radius: 50px;
         text-transform: capitalize;
         color: #333;
@@ -57,11 +57,11 @@
         $area: 200px;
 
         position: relative;
-        left: 0;
+        left: -.5em;
         top: -3em;
         border: 1px solid red;
-        width: calc(100vw - 4em);
-        height: calc(100dvh - 10em);
+        width: calc(100vw - 3em);
+        height: calc(100dvh - 12em);
         overflow: hidden;
         border-radius: 30px;
         border: 1px solid #3333331f;
