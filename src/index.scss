@@ -11,3 +11,16 @@ body {
   background-color: rgb(237, 231, 255);
   overflow: hidden;
 }
+
+.confetti {
+  z-index: 998 !important;
+  backdrop-filter: blur(5px);
+}
+
+.winner-name {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999 !important;
+}

@@ -15,11 +15,14 @@ const NameModal = ({ isOpen, onClose }) => {
               <img width={300} src={logo} alt="stickerspam logo" />
             </ModalHeader>
             <ModalBody>
-              <p className="bg-purple-100 p-4 rounded-2xl text-sm mt-4">
-                Pick and place one of four stickers each second.
+              <p className="bg-purple-100 p-4 rounded-2xl text-xs mt-4">
+                Place one of four stickers each second.
               </p>
-              <p className="bg-green-100 p-4 rounded-2xl text-sm mt-.5">
-                Whoever places the 33rd sticker wins the round.
+              <p className="bg-red-100 p-4 rounded-2xl text-xs mt-.5">
+                Only 33 stickers can be placed in a round.
+              </p>
+              <p className="bg-green-100 p-4 rounded-2xl text-xs mt-.5">
+                Whoever places the most stickers wins.
               </p>
             </ModalBody>
             <ModalFooter className="flex flex-col">

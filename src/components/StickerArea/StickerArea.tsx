@@ -7,14 +7,22 @@ import './StickerArea.scss';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Tooltip } from '@nextui-org/react';
 
-const StickerArea = ({ stickers, winner }) => {
+const StickerArea = ({ stickers, winner, leaderboard }) => {
     const constraintsRef = useRef(null);
 
     return (
         <div ref={constraintsRef} className='sticker-area-container'>
-            <div className='flex justify-end items-end flex-col gap-4 m-6'>
-                <div className='latest-winner w-fit text-yellow-400'>Previous Winner - {winner || 'Loading'}</div>
-                <div className='count w-fit'>Count - {stickers.length}</div>
+            <div className='flex flex-col items-end justify-between h-full p-5'>
+                <div className='flex justify-end items-end flex-col gap-4'>
+                    <div className='latest-winner w-fit shadow-md text-yellow-400'>Previous Winner - {winner || 'Loading'}</div>
+                    <div className='count shadow-md w-fit'>Count - {stickers.length}</div>
+                </div>
+                <div className='flex flex-col bg-[#333] text-white shadow-md rounded-2xl py-2 px-4 capitalize items-start text-xs relative z-30'>
+                    <p className='text-center uppercase text-yellow-400'>Leaderboard</p>
+                    {leaderboard.map((item) => (
+                        <span>{item}</span>
+                    ))}
+                </div>
             </div>
             {stickers.map((sticker: Sticker) => (
                 <AnimatePresence>

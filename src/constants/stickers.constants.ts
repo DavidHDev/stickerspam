@@ -22,3 +22,5 @@ export const options = {
         src: like
     }
 };
+
+export const nameRegex = /^\d+\s*-\s*([A-Za-z]+)\s*\(\d+\s*times\)$/;

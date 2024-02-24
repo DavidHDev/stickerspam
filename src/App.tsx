@@ -3,16 +3,21 @@ import { addSticker, clearStickersOnLimitReached, setLatestWinner } from "./fire
 import { get, getDatabase, onValue, ref } from "@firebase/database";
 
 import { Sticker } from "./Interfaces/Sticker";
-import { getUserName } from "./utils";
+import { getLeaderboard, getStickerCount, getUserName } from "./utils";
 
 import StickerPicker from "./components/StickerPicker/StickerPicker";
 import StickerArea from "./components/StickerArea/StickerArea";
 import NameModal from "./components/NameModal";
+import { nameRegex } from "./constants/stickers.constants";
+import WinnerMessage from "./components/WinnerMessage";
 
 const App: React.FC = () => {
   const [positionedStickers, setPositionedStickers] = useState<Sticker[]>([]);
   const [winner, setWinner] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const [leaderboard, setLeaderboard] = useState<string[]>([]);
+  const [stickerCount, setStickerCount] = useState(null);
+  const [isWinnerMessageVisible, setIsWinnerMessageVisible] = useState(false);
 
   useEffect(() => {
     const database = getDatabase();
@@ -25,8 +30,10 @@ const App: React.FC = () => {
           const data = snapshot.val();
 
           if (data) {
-            const stickers = Object.values(data);
-            setPositionedStickers(stickers as Sticker[]);
+            const stickers = Object.values(data) as Sticker[];
+            setPositionedStickers(stickers);
+            setLeaderboard(getLeaderboard(stickers));
+            setStickerCount(getStickerCount(stickers));
           }
         }
       })
@@ -52,16 +59,29 @@ const App: React.FC = () => {
 
       if (data) {
         const stickers: Sticker[] = Object.values(data);
+        // Display the statistics
+        setLeaderboard(getLeaderboard(stickers));
+        setStickerCount(getStickerCount(stickers));
+
         const newSticker: Sticker[] = [stickers.pop()];
         setPositionedStickers((prevValue) => (
           [...prevValue, ...newSticker] as Sticker[]
         ))
 
-        console.log(stickers.length)
-        if (stickers.length + 1 === 33) {
+        if (stickers.length + 1 === 5) {
+          setIsWinnerMessageVisible(true);
+
+          setTimeout(() => {
+            setLeaderboard([]);
+            setIsWinnerMessageVisible(false);
+            setStickerCount(null);
+            setPositionedStickers([]);
+          }, 5000)
+
+          // clear state
           clearStickersOnLimitReached();
-          setPositionedStickers([]);
-          setLatestWinner(stickers.pop().placedBy);
+          setLatestWinner(leaderboard[0].match(nameRegex)[1]);
+
           getWinner();
           getStickers();
         }
@@ -75,9 +95,13 @@ const App: React.FC = () => {
 
   return (
     <>
+      {isWinnerMessageVisible && (
+        <WinnerMessage winner={winner} />
+      )}
+
       <NameModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
-      <StickerPicker onStickerSelected={addSticker} />
-      <StickerArea stickers={positionedStickers} winner={winner} />
+      <StickerPicker onStickerSelected={addSticker} stickerCount={stickerCount} />
+      <StickerArea stickers={positionedStickers} winner={winner} leaderboard={leaderboard} />
     </>
   );
 };
